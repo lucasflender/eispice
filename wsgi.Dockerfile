@@ -25,5 +25,3 @@ RUN pip3 install numpy scipy
 WORKDIR /app
 COPY --from=build /app/*.whl .
 RUN pip3 install -U ./eispice-0.11.6-cp38-cp38-linux_x86_64.whl
-COPY main.py ./
-CMD ["python", "main.py"]
