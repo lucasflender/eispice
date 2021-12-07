@@ -4,7 +4,9 @@ FROM alpine:3.12 as build
 RUN apk add --update --no-cache python3-dev py3-pip \
     build-base gfortran re2c
 
-RUN apk add --update --no-cache python3-tkinter py3-virtualenv py3-wheel py3-numpy py3-scipy
+RUN apk add --update --no-cache python3-tkinter py3-virtualenv py3-wheel py3-numpy-dev py3-scipy
+
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 RUN pip3 install setuptools
 
