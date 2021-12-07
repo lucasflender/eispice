@@ -1,7 +1,9 @@
+import setuptools
 from distutils.core import setup, Extension
 from distutils.sysconfig import get_python_lib, get_python_inc
 import os
 import subprocess
+import numpy
 
 # This seems kind of arbitrary, is there a better way ?
 numpy_include = get_python_lib(True) + '/numpy/core/include'
@@ -25,7 +27,7 @@ subprocess.Popen(['make','libs']).wait()
 
 simulator = Extension('simulator_',
     define_macros = [('LIBNAME', 'simulator')],
-    include_dirs = ['./include', numpy_include],
+    include_dirs = ['./include', numpy_include, numpy.get_include()],
     sources = ['./module/simulatormodule.c'],
     library_dirs=['./libs'],
     libraries=['simulator', 'superlu', 'lapack', 'blas', 'toms', 'cephes',
@@ -42,5 +44,6 @@ setup(name = 'eispice',
     ext_modules = [simulator],
     package_dir={'': 'module'},
     packages=[''],
+    setup_requires=['wheel'],
     extra_path = 'eispice')
 

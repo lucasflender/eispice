@@ -85,6 +85,20 @@ install: uninstall
 	$(Q)python setup.py build $(PYFLAG) install
 	$(Q)rm -fdr ./build
 
+bdist: $(LIBS)
+	@echo Installing
+	$(Q)python setup.py build $(PYFLAG) bdist
+	$(Q)cp ./dist/* .
+	$(Q)rm -fdr ./build
+	$(Q)rm -fdr ./dist
+
+wheel: $(LIBS)
+	@echo Installing
+	$(Q)python setup.py build $(PYFLAG) bdist_wheel
+	$(Q)cp ./dist/* .
+	$(Q)rm -fdr ./build
+	$(Q)rm -fdr ./dist
+
 windist: $(LIBS)
 	@echo Installing
 	$(Q)python setup.py build $(PYFLAG) bdist_wininst
